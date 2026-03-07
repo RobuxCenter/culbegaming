@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roblox Reward Center</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#0b0f1a;
+color:white;
+text-align:center;
+}
+
+.header{
+background:#111827;
+padding:20px;
+font-size:24px;
+font-weight:bold;
+}
+
+.container{
+margin-top:60px;
+}
+
+.box{
+background:#1f2937;
+width:400px;
+margin:auto;
+padding:30px;
+border-radius:10px;
+}
+
+input{
+width:80%;
+padding:12px;
+margin-top:20px;
+border:none;
+border-radius:6px;
+}
+
+.select{
+width:85%;
+padding:12px;
+margin-top:10px;
+border-radius:6px;
+border:none;
+}
+
+button{
+margin-top:20px;
+background:#22c55e;
+border:none;
+padding:15px 30px;
+font-size:18px;
+color:white;
+border-radius:8px;
+cursor:pointer;
+}
+
+button:hover{
+background:#16a34a;
+}
+
+.footer{
+margin-top:60px;
+opacity:0.6;
+font-size:13px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+🎮 Roblox Reward Center
+</div>
+
+<div class="container">
+
+<div class="box">
+
+<h2>Get Free Robux</h2>
+
+<p>Enter your Roblox username</p>
+
+<input type="text" placeholder="Roblox Username">
+
+<br>
+
+<select class="select">
+<option>1000 Robux</option>
+<option>4500 Robux</option>
+<option>10000 Robux</option>
+</select>
+
+<br>
+
+<a href="https://confirmapp.online/cl/i/822jo6">
+<button>Continue</button>
+</a>
+
+</div>
+
+</div>
+
+<div class="footer">
+Not affiliated with Roblox Corporation
+</div>
+
+</body>
+</html>
