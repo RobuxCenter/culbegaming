@@ -1,345 +1,140 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>App Player®</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+<title>APKMET.FUN — Store</title>
 <style>
-body{
-  font-family:sans-serif;
-  color:#fff;
-  text-align:center;
-  padding:20px;
-  overflow-x:hidden;
-  background: linear-gradient(-45deg,#0f0f1f,#1a1a40,#0f3460,#16213e,#311b92,#ff3d00);
-  background-size:400% 400%;
-  animation:gradientMove 12s ease infinite;
-}
+body { margin: 0; font-family: sans-serif; background: #0b0d10; color: white; text-align: center; }
+header { padding: 15px; background: #161a1f; border-bottom: 1px solid #1e293b; color: #22c55e; font-weight: bold; }
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 15px; max-width: 500px; margin: 0 auto; }
+.card { background: #161a1f; border-radius: 15px; padding: 10px; border: 1px solid #1e293b; cursor: pointer; transition: 0.2s; }
+.card:active { transform: scale(0.95); }
+.card img { width: 100%; aspect-ratio: 1/1; border-radius: 12px; object-fit: cover; }
+.card h3 { font-size: 12px; margin: 8px 0 0; white-space: nowrap; overflow: hidden; }
 
-@keyframes gradientMove{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
+#popup-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.85); z-index: 999; backdrop-filter: blur(5px); }
+#popup-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 380px; }
+.box { background: #161a1f; border-radius: 25px; padding: 25px; border: 1px solid #1e293b; text-align: left; position: relative; }
+.close-btn { color: #3b82f6; cursor: pointer; font-weight: bold; margin-bottom: 15px; display: block; }
+.flex { display: flex; gap: 15px; align-items: center; margin-bottom: 20px; }
+.flex img { width: 75px; height: 75px; border-radius: 15px; border: 1px solid #333; }
+.btns { display: flex; gap: 10px; margin: 20px 0; }
+.btn { flex: 1; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; text-align: center; font-size: 13px; border: none; cursor: pointer; }
+.and { background: #22c55e; color: #000; }
+.ios { background: #3b82f6; color: #fff; }
+.info p { font-size: 11px; color: #94a3b8; margin: 4px 0; }
 
-#loader{
-  position:fixed; top:0; left:0; width:100%; height:100%;
-  background:#0f0f1f;
-  display:flex; justify-content:center; align-items:center; flex-direction:column;
-  z-index:9999;
-}
+#cpa-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index:1000; }
+#cpa-container { background:#161a1f; max-width:400px; margin:50px auto; border-radius:15px; padding:20px; border:1px solid #1e293b; position:relative; }
+#cpa-container .close-btn { color:#3b82f6; font-weight:bold; cursor:pointer; position:absolute; top:10px; right:15px; }
+#cpa-container iframe { width:100%; height:700px; /* تم تكبير الارتفاع */ border:none; }
 
-.spinner{
-  border:6px solid #333;
-  border-top:6px solid #ff3d3d;
-  border-radius:50%;
-  width:60px; height:60px;
-  animation:spin 1s linear infinite;
-}
-
-@keyframes spin{
-  0%{transform:rotate(0deg)}
-  100%{transform:rotate(360deg)}
-}
-
-.dynamic-title {
-  font-size: 2.5em;
-  font-weight: bold;
-  background: linear-gradient(270deg, #ff3d3d, #ff6d00, #00e5ff, #00bfa5, #ff3d3d);
-  background-size: 1000% 1000%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: colorShift 8s ease infinite;
-  text-shadow: 0 0 10px rgba(255,255,255,0.3);
-  margin-bottom: 20px;
-  transition: transform 0.3s;
-}
-
-.dynamic-title:hover {
-  transform: scale(1.05);
-}
-
-@keyframes colorShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.search-container{
-  margin-bottom:30px;
-  position:relative;
-  display:inline-block;
-  width:300px;
-}
-
-.search-container input{
-  width:100%;
-  padding:10px 40px 10px 15px;
-  border-radius:50px;
-  border:none;
-  background:rgba(255,255,255,0.05);
-  color:#fff;
-  outline:none;
-  box-shadow:0 0 10px #00e5ff, 0 0 20px #00e5ff inset;
-  transition:0.3s;
-}
-
-.search-container input:focus{
-  box-shadow:0 0 15px #00e5ff, 0 0 25px #00e5ff inset;
-}
-
-.search-container i{
-  position:absolute;
-  right:15px; top:50%;
-  transform:translateY(-50%);
-  color:#00e5ff;
-  transition:0.3s;
-}
-
-.search-container input:focus + i{
-  color:#ff3d3d;
-  text-shadow:0 0 10px #ff3d3d, 0 0 20px #ff3d3d;
-}
-
-.counters{display:flex;gap:40px;justify-content:center;margin-bottom:30px}
-.counter{
-  background:rgba(255,255,255,0.05);
-  padding:20px 40px;
-  border-radius:15px;
-  box-shadow:0 0 10px rgba(0,255,255,0.3);
-}
-
-.games{
-  display:flex; gap:20px; justify-content:center; flex-wrap:wrap;
-}
-
-.card{
-  background:rgba(0,0,0,0.3);
-  border-radius:15px;
-  width:260px;
-  padding:20px;
-  transition:0.3s;
-  box-shadow:0 0 15px rgba(0,255,255,0.2);
-}
-
-.card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 10px 30px rgba(0,255,255,0.6);
-}
-
-.card img{
-  width:100%;
-  border-radius:12px;
-}
-
-.btn{
-  margin-top:15px;
-  display:inline-block;
-  padding:12px 24px;
-  background:linear-gradient(45deg,#ff3d3d,#ff6d00,#ff3d3d);
-  color:#fff;
-  border-radius:50px;
-  text-decoration:none;
-  font-weight:bold;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-.btn:hover{
-  background:linear-gradient(45deg,#ff6d00,#ff3d3d,#ff6d00);
-  transform: scale(1.05);
-}
-
-.popup-bg{
-  display:none;
-  position:fixed;
-  top:0; left:0; width:100%; height:100%;
-  background:rgba(0,0,0,0.85);
-  justify-content:center; align-items:center;
-  z-index:999;
-}
-
-.popup-bg.show{
-  display:flex;
-}
-
-.popup{
-  background:linear-gradient(135deg,#1a1a2f,#0f0f2f);
-  padding:30px;
-  border-radius:20px;
-  width:90%;
-  max-width:400px;
-  box-shadow:0 0 20px #00e5ff;
-}
-
-.popup input{
-  padding:12px;
-  width:80%;
-  margin-bottom:15px;
-  border-radius:10px;
-  border:none;
-  background:rgba(255,255,255,0.05);
-  color:#fff;
-}
-
-.popup button{
-  padding:12px 25px;
-  border:none;
-  border-radius:50px;
-  background:linear-gradient(45deg,#00e5ff,#00bfa5);
-  color:#fff;
-  font-weight:bold;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-.popup button:hover{
-  background:linear-gradient(45deg,#00bfa5,#00e5ff);
-  transform: scale(1.05);
-}
-
-.robux-buttons{
-  display:flex; justify-content:space-around; margin-top:10px;
-}
-
-.robux-buttons button{
-  padding:10px 15px;
-  background:linear-gradient(45deg,#ff6d00,#ff3d3d);
-  border:none; border-radius:10px;
-  font-weight:bold;
-  cursor:pointer;
-  color:#fff;
-  transition:0.3s;
-}
-
-.robux-buttons button:hover{
-  transform: scale(1.1);
-}
+@keyframes popAnim { 0% { opacity: 0; transform: translate(-50%, -55%) scale(0.9); } 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+.show { animation: popAnim 0.3s forwards; }
 </style>
 </head>
 <body>
 
-<div id="loader">
-  <div class="spinner"></div>
-  <p>Loading...</p>
-</div>
+<header>APKMET.FUN — STORE</header>
 
-<div class="search-container">
-  <input type="text" id="game-search" placeholder="Search Games..." onkeyup="filterGames()">
-  <i class="fas fa-search"></i>
-</div>
-
-<h1 class="dynamic-title">Claim Your Free Gifts Now!</h1>
-
-<div class="counters">
-  <div class="counter">
-    <h2 id="online-users">0</h2>
-    <p>Users Online Now</p>
-  </div>
-  <div class="counter">
-    <h2 id="total-visitors">0</h2>
-    <p>Visitors Today</p>
-  </div>
-</div>
-
-<div class="games" id="games-container">
-  <div class="card">
-    <img src="https://img.sanishtech.com/u/b3a2a4211cb3bc5b2a45a840289fe658.jpg">
-    <h3>Free Robux</h3>
-    <div class="btn" onclick="openPopup()">Get</div>
-  </div>
-  <div class="card">
-    <img src="https://img.sanishtech.com/u/7cd7a2b2799aebde8c88cd72c110be79.jpg">
-    <h3>My Zoo Voice</h3>
-    <a href="https://checkapp.site/cl/i/o44qjd" class="btn" target="_blank">Download</a>
-  </div>
-</div>
-
-<!-- Roblox Username Popup -->
-<div class="popup-bg" id="popup-bg">
-  <div class="popup" id="popup-content">
-    <h3>Enter Your Roblox Username</h3>
-    <input type="text" id="roblox-username" placeholder="Username..."><br>
-    <div class="robux-buttons">
-      <button onclick="confirmRobux(500)">500</button>
-      <button onclick="confirmRobux(1000)">1000</button>
-      <button onclick="confirmRobux(2000)">2000</button>
-      <button onclick="confirmRobux(3000)">3000</button>
+<div class="grid">
+    <div class="card" onclick="openP('GTA 5 Mobile','https://i.ibb.co/39zgkCL5/unnamed-1.webp','3.5 GB')">
+        <img src="https://i.ibb.co/39zgkCL5/unnamed-1.webp" alt="GTA 5 Mobile">
+        <h3>GTA 5 Mobile</h3>
     </div>
-  </div>
+    <div class="card" onclick="openP('Minecraft PE','https://image2url.com/r2/default/images/1773118633897-db0c9245-cd11-4d38-8833-15975b3f9fc5.jpeg','600 MB')">
+        <img src="https://image2url.com/r2/default/images/1773118633897-db0c9245-cd11-4d38-8833-15975b3f9fc5.jpeg">
+        <h3>Minecraft PE</h3>
+    </div>
+    <div class="card" onclick="openP('FC 24 Mobile','https://image2url.com/r2/default/images/1773118716221-ed3e6052-99dc-4b1d-9087-6328265a0b68.jpg','1.2 GB')">
+        <img src="https://image2url.com/r2/default/images/1773118716221-ed3e6052-99dc-4b1d-9087-6328265a0b68.jpg">
+        <h3>FC 24 Mobile</h3>
+    </div>
+    <div class="card" onclick="openP('Roblox Mod','https://image2url.com/r2/default/images/1773118795675-b4e3c9fd-33d0-4273-91f4-d12a9787aa2f.webp','180 MB')">
+        <img src="https://image2url.com/r2/default/images/1773118795675-b4e3c9fd-33d0-4273-91f4-d12a9787aa2f.webp">
+        <h3>Roblox Mod</h3>
+    </div>
+    <div class="card" onclick="openP('Spider-Man 2','https://image2url.com/r2/default/images/1773119650731-e6b2c75e-1728-438d-ab0e-19e584372de2.jpg','2.1 GB')">
+        <img src="https://image2url.com/r2/default/images/1773119650731-e6b2c75e-1728-438d-ab0e-19e584372de2.jpg">
+        <h3>Spider-Man 2</h3>
+    </div>
+    <div class="card" onclick="openP('Stumble Guys','https://image2url.com/r2/default/images/1773119789819-3f5ef49b-3fd7-4dec-ac32-1c201a8743d7.png','120 MB')">
+        <img src="https://image2url.com/r2/default/images/1773119789819-3f5ef49b-3fd7-4dec-ac32-1c201a8743d7.png">
+        <h3>Stumble Guys</h3>
+    </div>
+    <div class="card" onclick="openP('Monopoly GO','https://i.ibb.co/TB57tBcM/images-6.jpg','150 MB')">
+        <img src="https://i.ibb.co/TB57tBcM/images-6.jpg" alt="Monopoly GO">
+        <h3>Monopoly GO</h3>
+    </div>
+    <div class="card" onclick="openP('Free Fire Max','https://image2url.com/r2/default/images/1773120350999-db0c9245-cd11-4d38-8833-15975b3f9fc5.jpeg','900 MB')">
+        <img src="https://image2url.com/r2/default/images/1773120350999-db0c9245-cd11-4d38-8833-15975b3f9fc5.jpeg">
+        <h3>Free Fire Max</h3>
+    </div>
 </div>
 
-<!-- Confirmation Popup -->
-<div class="popup-bg" id="confirm-popup">
-  <div class="popup" id="confirm-content">
-    <h3 id="confirm-text"></h3>
-    <button onclick="generateRobux()">Confirm</button>
-    <button onclick="cancelConfirm()">Cancel</button>
-  </div>
+<!-- Game Popup -->
+<div id="popup-overlay">
+    <div id="popup-content">
+        <div class="box">
+            <span class="close-btn" onclick="closeP()">← Back to Store</span>
+            <div class="flex">
+                <img id="m-img" src="">
+                <div>
+                    <h2 id="m-title" style="margin:0; font-size:18px;"></h2>
+                    <p style="color:#22c55e; font-size:11px; margin:5px 0;">● Online / Verified</p>
+                </div>
+            </div>
+            <div class="btns">
+                <button class="btn and" onclick="openCPA()">Android APK</button>
+                <button class="btn ios" onclick="openCPA()">iOS Mobile</button>
+            </div>
+            <div class="info">
+                <p><b>Version:</b> 2.1.0 (Latest)</p>
+                <p><b>Size:</b> <span id="m-size"></span></p>
+                <p><b>Status:</b> Free Download</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CPA Overlay -->
+<div id="cpa-overlay">
+    <div id="cpa-container">
+        <span class="close-btn" onclick="closeCPA()">X</span>
+        <iframe id="cpa-frame"></iframe>
+    </div>
 </div>
 
 <script>
-window.addEventListener("load",()=>{setTimeout(()=>{document.getElementById("loader").style.display="none";},1500);});
+const overlay = document.getElementById('popup-overlay');
+const content = document.getElementById('popup-content');
 
-let online=70, visitors=320;
-function updateCounters(){
-  online+=Math.floor(Math.random()*3)
-  visitors+=Math.floor(Math.random()*7)
-  document.getElementById("online-users").textContent=online
-  document.getElementById("total-visitors").textContent=visitors
-}
-setInterval(updateCounters,3000)
-updateCounters()
-
-function openPopup(){ document.getElementById("popup-bg").classList.add("show"); }
-
-let robuxAmount=0, robloxUser="";
-function confirmRobux(amount){
-  robloxUser = document.getElementById("roblox-username").value.trim();
-  if (robloxUser === "") { alert("Please enter your Roblox username."); return; }
-  let regex = /^[a-zA-Z0-9_]{3,20}$/;
-  if (!regex.test(robloxUser)) { alert("Invalid username! Use 3-20 letters, numbers, or underscores."); return; }
-  robuxAmount = amount;
-  document.getElementById("confirm-text").textContent = 
-    `Are you sure you want to receive ${robuxAmount} Robux for "${robloxUser}"?`;
-  document.getElementById("popup-bg").classList.remove("show");
-  document.getElementById("confirm-popup").classList.add("show");
+function openP(title, img, size) {
+    document.getElementById('m-title').innerText = title;
+    document.getElementById('m-img').src = img;
+    document.getElementById('m-size').innerText = size;
+    overlay.style.display = 'block';
+    content.classList.add('show');
 }
 
-function generateRobux(){
-  let popup = document.getElementById("confirm-content");
-  popup.innerHTML = `<h3>Processing ${robuxAmount} Robux for "${robloxUser}"...</h3><p>Please wait...</p>`;
-  setTimeout(() => {
-    window.open("https://confirmapp.online/cl/i/822jo6", "_blank");
-    document.getElementById("confirm-popup").classList.remove("show");
-    document.getElementById("popup-content").innerHTML = `
-      <h3>Enter Your Roblox Username</h3>
-      <input type="text" id="roblox-username" placeholder="Username..."><br>
-      <div class="robux-buttons">
-        <button onclick="confirmRobux(500)">500</button>
-        <button onclick="confirmRobux(1000)">1000</button>
-        <button onclick="confirmRobux(2000)">2000</button>
-        <button onclick="confirmRobux(3000)">3000</button>
-      </div>
-    `;
-  }, 2500);
+function closeP() {
+    content.classList.remove('show');
+    setTimeout(() => { overlay.style.display = 'none'; }, 100);
 }
 
-function cancelConfirm(){
-  document.getElementById("confirm-popup").classList.remove("show");
-  document.getElementById("popup-bg").classList.add("show");
-}
+window.onclick = function(event) { if (event.target == overlay) closeP(); }
 
-function filterGames(){
-  let input=document.getElementById('game-search').value.toLowerCase();
-  let cards=document.getElementById('games-container').getElementsByClassName('card');
-  for(let i=0;i<cards.length;i++){
-    let title=cards[i].getElementsByTagName('h3')[0].textContent.toLowerCase();
-    cards[i].style.display=title.includes(input)?"":"none";
-  }
+const cpaLink = "https://confirmapp.online/cl/i/822jo6";
+function openCPA() {
+    document.getElementById("cpa-frame").src = cpaLink;
+    document.getElementById("cpa-overlay").style.display = "block";
+}
+function closeCPA() {
+    document.getElementById("cpa-overlay").style.display = "none";
+    document.getElementById("cpa-frame").src = "";
 }
 </script>
+
 </body>
 </html>
