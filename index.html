@@ -28,7 +28,11 @@ header { padding: 15px; background: #161a1f; border-bottom: 1px solid #1e293b; c
 #cpa-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index:1000; }
 #cpa-container { background:#161a1f; max-width:400px; margin:50px auto; border-radius:15px; padding:20px; border:1px solid #1e293b; position:relative; }
 #cpa-container .close-btn { color:#3b82f6; font-weight:bold; cursor:pointer; position:absolute; top:10px; right:15px; }
-#cpa-container iframe { width:100%; height:700px; /* تم تكبير الارتفاع */ border:none; }
+#cpa-container iframe { width:100%; height:700px; border:none; }
+
+.fake-counter { max-width:400px; margin:20px auto; padding:15px; border-radius:15px; background:#161a1f; border:1px solid #1e293b; text-align:center; color:white; font-family:sans-serif; }
+.fake-counter h3 { margin:0 0 10px; font-size:16px; }
+.fake-counter p { font-size:28px; font-weight:bold; margin:5px 0; }
 
 @keyframes popAnim { 0% { opacity: 0; transform: translate(-50%, -55%) scale(0.9); } 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
 .show { animation: popAnim 0.3s forwards; }
@@ -71,6 +75,14 @@ header { padding: 15px; background: #161a1f; border-bottom: 1px solid #1e293b; c
         <img src="https://image2url.com/r2/default/images/1773120350999-db0c9245-cd11-4d38-8833-15975b3f9fc5.jpeg">
         <h3>Free Fire Max</h3>
     </div>
+</div>
+
+<!-- Fake Visitor Counter -->
+<div class="fake-counter">
+    <h3>👁️ Users Online Now</h3>
+    <p id="online-now">332</p>
+    <h3>Visitors Today</h3>
+    <p id="visitors-today">77</p>
 </div>
 
 <!-- Game Popup -->
@@ -134,6 +146,12 @@ function closeCPA() {
     document.getElementById("cpa-overlay").style.display = "none";
     document.getElementById("cpa-frame").src = "";
 }
+
+// Fake Visitor Counter Update
+setInterval(() => {
+    document.getElementById('online-now').innerText = Math.floor(Math.random() * 500) + 50; // 50-550
+    document.getElementById('visitors-today').innerText = Math.floor(Math.random() * 5000) + 100; // 100-5100
+}, 5000);
 </script>
 
 </body>
