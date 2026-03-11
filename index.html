@@ -1,158 +1,282 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>APKMET.FUN — Store</title>
-<style>
-body { margin: 0; font-family: sans-serif; background: #0b0d10; color: white; text-align: center; }
-header { padding: 15px; background: #161a1f; border-bottom: 1px solid #1e293b; color: #22c55e; font-weight: bold; }
-.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 15px; max-width: 500px; margin: 0 auto; }
-.card { background: #161a1f; border-radius: 15px; padding: 10px; border: 1px solid #1e293b; cursor: pointer; transition: 0.2s; }
-.card:active { transform: scale(0.95); }
-.card img { width: 100%; aspect-ratio: 1/1; border-radius: 12px; object-fit: cover; }
-.card h3 { font-size: 12px; margin: 8px 0 0; white-space: nowrap; overflow: hidden; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CLUB GAMING — PREMIUM STORE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { 
+            --accent-blue: #007aff; 
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --text-dark: #1d1d1f; 
+        }
 
-#popup-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.85); z-index: 999; backdrop-filter: blur(5px); }
-#popup-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 380px; }
-.box { background: #161a1f; border-radius: 25px; padding: 25px; border: 1px solid #1e293b; text-align: left; position: relative; }
-.close-btn { color: #3b82f6; cursor: pointer; font-weight: bold; margin-bottom: 15px; display: block; }
-.flex { display: flex; gap: 15px; align-items: center; margin-bottom: 20px; }
-.flex img { width: 75px; height: 75px; border-radius: 15px; border: 1px solid #333; }
-.btns { display: flex; gap: 10px; margin: 20px 0; }
-.btn { flex: 1; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; text-align: center; font-size: 13px; border: none; cursor: pointer; }
-.and { background: #22c55e; color: #000; }
-.ios { background: #3b82f6; color: #fff; }
-.info p { font-size: 11px; color: #94a3b8; margin: 4px 0; }
+        body { 
+            margin: 0; font-family: -apple-system, sans-serif; 
+            color: var(--text-dark); background: #fff;
+            background-image: radial-gradient(at 0% 0%, hsla(197,100%,85%,1) 0, transparent 50%), radial-gradient(at 100% 0%, hsla(338,100%,85%,1) 0, transparent 50%), radial-gradient(at 0% 100%, hsla(280,100%,85%,1) 0, transparent 50%);
+            background-attachment: fixed; background-size: 200% 200%; animation: meshMove 15s ease infinite; min-height: 100vh; overflow-x: hidden;
+        }
+        @keyframes meshMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-#cpa-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index:1000; }
-#cpa-container { background:#161a1f; max-width:400px; margin:50px auto; border-radius:15px; padding:20px; border:1px solid #1e293b; position:relative; }
-#cpa-container .close-btn { color:#3b82f6; font-weight:bold; cursor:pointer; position:absolute; top:10px; right:15px; }
-#cpa-container iframe { width:100%; height:700px; border:none; }
+        .system-banner { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); color: #000; padding: 12px; text-align: center; font-size: 13px; font-weight: 900; position: sticky; top: 0; z-index: 1001; text-transform: uppercase; border-bottom: 1px solid var(--glass-border); }
+        .system-banner span { display: inline-block; animation: wave 3s infinite; }
+        @keyframes wave { 0%, 100% { color: #000; transform: scale(1); } 50% { color: var(--accent-blue); transform: scale(1.05); } }
 
-.fake-counter { max-width:400px; margin:20px auto; padding:15px; border-radius:15px; background:#161a1f; border:1px solid #1e293b; text-align:center; color:white; font-family:sans-serif; }
-.fake-counter h3 { margin:0 0 10px; font-size:16px; }
-.fake-counter p { font-size:28px; font-weight:bold; margin:5px 0; }
+        header { padding: 15px 20px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-border); position: sticky; top: 43px; z-index: 100; text-align: center; }
+        .logo-icon { display: inline-block; background: linear-gradient(45deg, var(--accent-blue), #5ac8fa); color: white; padding: 10px; border-radius: 14px; animation: logoPulse 2s infinite ease-in-out; font-size: 20px; }
+        @keyframes logoPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
 
-@keyframes popAnim { 0% { opacity: 0; transform: translate(-50%, -55%) scale(0.9); } 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
-.show { animation: popAnim 0.3s forwards; }
-</style>
+        .visitor-now { font-size: 11px; font-weight: 800; color: #555; display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 10px; }
+        .dot { width: 7px; height: 7px; background: #28cd41; border-radius: 50%; animation: blink 1s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+        .search-box { max-width: 500px; margin: 15px auto 0; position: relative; padding: 0 20px; }
+        .search-box input { width: 100%; padding: 12px 40px; border-radius: 12px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.6); outline: none; font-size: 14px; box-sizing: border-box; }
+        .search-box i { position: absolute; left: 35px; top: 50%; transform: translateY(-50%); color: #888; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 15px; padding: 20px; max-width: 1000px; margin: 0 auto; }
+        .card { background: var(--glass-bg); backdrop-filter: blur(10px); padding: 12px; border-radius: 24px; border: 1px solid var(--glass-border); transition: 0.3s; cursor: pointer; text-align: center; position: relative; overflow: hidden; }
+        .card img { width: 100%; aspect-ratio: 1/1; border-radius: 18px; object-fit: cover; }
+        .card h3 { margin: 8px 0 2px; font-size: 11px; font-weight: 800; }
+        .dl-count { font-size: 9px; color: #666; font-weight: 700; }
+
+        .card-loader { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.8); z-index: 5; align-items: center; justify-content: center; border-radius: 24px; }
+        .spinner { width: 24px; height: 24px; border: 3px solid #eee; border-top: 3px solid var(--accent-blue); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        #popup-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: #fff; background-image: radial-gradient(at 0% 0%, hsla(197,100%,85%,1) 0, transparent 50%), radial-gradient(at 100% 0%, hsla(338,100%,85%,1) 0, transparent 50%), radial-gradient(at 0% 100%, hsla(280,100%,85%,1) 0, transparent 50%); background-attachment: fixed; z-index: 9999; overflow-y: auto; animation: slideIn 0.4s ease-out; }
+        @keyframes slideIn { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; padding-top: 60px; }
+        .close-btn { position: fixed; top: 15px; right: 20px; font-size: 26px; color: #1d1d1f; cursor: pointer; z-index: 10002; }
+
+        .m-header { text-align: center; margin-bottom: 30px; }
+        .m-header img { width: 120px; height: 120px; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 15px; }
+        .m-header h2 { margin: 0; font-size: 26px; font-weight: 900; }
+
+        .dl-btns-row { display: flex; gap: 10px; margin: 20px 0; }
+        .dl-btn { flex: 1; padding: 16px; border-radius: 14px; font-weight: 900; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 13px; transition: 0.2s; }
+        .and-btn { background: #28cd41; color: #fff; }
+        .ios-btn { background: #000; color: #fff; }
+
+        .info-box { background: rgba(255,255,255,0.5); border: 1px solid var(--glass-border); border-radius: 16px; padding: 15px; margin-bottom: 20px; }
+        .info-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 13px; }
+        .info-item:last-child { border: none; }
+        .info-label { font-weight: 700; color: #666; }
+        .info-value { font-weight: 800; color: #000; }
+
+        .ss-list { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+        .ss-list img { width: 100%; border-radius: 16px; border: 1px solid var(--glass-border); }
+
+        .wa-float { position: fixed; bottom: 25px; right: 25px; background: #25D366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 10000; text-decoration: none; animation: pulseWa 2s infinite; }
+        @keyframes pulseWa { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+
+        .notif-box { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); z-index: 10001; width: 90%; max-width: 350px; pointer-events: none; }
+        .live-notif { background: #fff; padding: 12px; border-radius: 20px; font-size: 11px; font-weight: 800; display: flex; align-items: center; gap: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: 10px; animation: slideUp 0.5s forwards; }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .flag { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; border: 1px solid #eee; }
+        
+        /* THE GREEN SPAM PULSE */
+        .card-live-update { animation: cardPulse 1.2s ease-out; }
+        @keyframes cardPulse {
+            0% { background: var(--glass-bg); transform: scale(1); border-color: var(--glass-border); }
+            30% { background: rgba(40, 205, 65, 0.4); transform: scale(1.06); border-color: #28cd41; box-shadow: 0 0 20px rgba(40, 205, 65, 0.3); }
+            100% { background: var(--glass-bg); transform: scale(1); border-color: var(--glass-border); }
+        }
+
+        #cpa-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:100000; }
+    </style>
 </head>
 <body>
 
-<header>APKMET.FUN — STORE</header>
+<div class="system-banner" id="bannerWave"></div>
 
-<div class="grid">
-    <div class="card" onclick="openP('GTA 5 Mobile','https://i.ibb.co/39zgkCL5/unnamed-1.webp','3.5 GB')">
-        <img src="https://i.ibb.co/39zgkCL5/unnamed-1.webp" alt="GTA 5 Mobile">
-        <h3>GTA 5 Mobile</h3>
+<header>
+    <div class="logo-icon"><i class="fa-solid fa-gamepad"></i></div>
+    <h1 style="margin:5px 0 0; font-size:20px; font-weight:900;">CLUB GAMING</h1>
+    <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="gameSearch" placeholder="Search premium games..." onkeyup="searchGames()">
     </div>
-    <div class="card" onclick="openP('Minecraft PE','https://image2url.com/r2/default/images/1773118633897-db0c9245-cd11-4d38-8833-15975b3f9fc5.jpeg','600 MB')">
-        <img src="https://image2url.com/r2/default/images/1773118633897-db0c9245-cd11-4d38-8833-15975b3f9fc5.jpeg">
-        <h3>Minecraft PE</h3>
+    <div class="visitor-now">
+        <div class="dot"></div> <span id="live-v">184</span> ONLINE NOW IN STORE
     </div>
-    <div class="card" onclick="openP('FC 24 Mobile','https://image2url.com/r2/default/images/1773118716221-ed3e6052-99dc-4b1d-9087-6328265a0b68.jpg','1.2 GB')">
-        <img src="https://image2url.com/r2/default/images/1773118716221-ed3e6052-99dc-4b1d-9087-6328265a0b68.jpg">
-        <h3>FC 24 Mobile</h3>
-    </div>
-    <div class="card" onclick="openP('Roblox Mod','https://image2url.com/r2/default/images/1773118795675-b4e3c9fd-33d0-4273-91f4-d12a9787aa2f.webp','180 MB')">
-        <img src="https://image2url.com/r2/default/images/1773118795675-b4e3c9fd-33d0-4273-91f4-d12a9787aa2f.webp">
-        <h3>Roblox Mod</h3>
-    </div>
-    <div class="card" onclick="openP('Spider-Man 2','https://image2url.com/r2/default/images/1773119650731-e6b2c75e-1728-438d-ab0e-19e584372de2.jpg','2.1 GB')">
-        <img src="https://image2url.com/r2/default/images/1773119650731-e6b2c75e-1728-438d-ab0e-19e584372de2.jpg">
-        <h3>Spider-Man 2</h3>
-    </div>
-    <div class="card" onclick="openP('Stumble Guys','https://image2url.com/r2/default/images/1773119789819-3f5ef49b-3fd7-4dec-ac32-1c201a8743d7.png','120 MB')">
-        <img src="https://image2url.com/r2/default/images/1773119789819-3f5ef49b-3fd7-4dec-ac32-1c201a8743d7.png">
-        <h3>Stumble Guys</h3>
-    </div>
-    <div class="card" onclick="openP('Monopoly GO','https://i.ibb.co/TB57tBcM/images-6.jpg','150 MB')">
-        <img src="https://i.ibb.co/TB57tBcM/images-6.jpg" alt="Monopoly GO">
-        <h3>Monopoly GO</h3>
-    </div>
-    <div class="card" onclick="openP('Free Fire Max','https://image2url.com/r2/default/images/1773120350999-db0c9245-cd11-4d38-8833-15975b3f9fc5.jpeg','900 MB')">
-        <img src="https://image2url.com/r2/default/images/1773120350999-db0c9245-cd11-4d38-8833-15975b3f9fc5.jpeg">
-        <h3>Free Fire Max</h3>
-    </div>
-</div>
+</header>
 
-<!-- Fake Visitor Counter -->
-<div class="fake-counter">
-    <h3>👁️ Users Online Now</h3>
-    <p id="online-now">332</p>
-    <h3>Visitors Today</h3>
-    <p id="visitors-today">77</p>
-</div>
+<div class="grid" id="game-grid"></div>
 
-<!-- Game Popup -->
+<a href="https://wa.me/212690587889" target="_blank" class="wa-float">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
 <div id="popup-overlay">
-    <div id="popup-content">
-        <div class="box">
-            <span class="close-btn" onclick="closeP()">← Back to Store</span>
-            <div class="flex">
-                <img id="m-img" src="">
-                <div>
-                    <h2 id="m-title" style="margin:0; font-size:18px;"></h2>
-                    <p style="color:#22c55e; font-size:11px; margin:5px 0;">● Online / Verified</p>
-                </div>
-            </div>
-            <div class="btns">
-                <button class="btn and" onclick="openCPA()">Android APK</button>
-                <button class="btn ios" onclick="openCPA()">iOS Mobile</button>
-            </div>
-            <div class="info">
-                <p><b>Version:</b> 2.1.0 (Latest)</p>
-                <p><b>Size:</b> <span id="m-size"></span></p>
-                <p><b>Status:</b> Free Download</p>
-            </div>
+    <div class="close-btn" onclick="closeP()">✕</div>
+    <div class="container">
+        <div class="m-header">
+            <img id="m-img" src="">
+            <h2 id="m-title"></h2>
+            <div style="color: #28cd41; font-weight: 800; font-size: 12px; margin-top: 5px;"><i class="fa-solid fa-shield-check"></i> VERIFIED & SECURE ACCESS</div>
         </div>
+
+        <div class="dl-btns-row">
+            <button class="dl-btn and-btn" onclick="smartCheck('and')"><i class="fa-brands fa-android"></i> ANDROID</button>
+            <button class="dl-btn ios-btn" onclick="smartCheck('ios')"><i class="fa-brands fa-apple"></i> iOS DEVICE</button>
+        </div>
+
+        <div class="info-box">
+            <div class="info-item"><span class="info-label">Current Version</span><span class="info-value">v2.4.1</span></div>
+            <div class="info-item"><span class="info-label">File Size</span><span class="info-value" id="m-size-val"></span></div>
+            <div class="info-item"><span class="info-label">Requirements</span><span class="info-value" id="m-ram-val"></span></div>
+            <div class="info-item"><span class="info-label">Price</span><span class="info-value" style="color:#28cd41;">FREE</span></div>
+        </div>
+
+        <div style="font-size: 14px; font-weight: 800; color: var(--accent-blue);"><i class="fa-solid fa-image"></i> PREVIEW GALLERY</div>
+        <div class="ss-list" id="m-ss"></div>
     </div>
 </div>
 
-<!-- CPA Overlay -->
 <div id="cpa-overlay">
-    <div id="cpa-container">
-        <span class="close-btn" onclick="closeCPA()">X</span>
-        <iframe id="cpa-frame"></iframe>
+    <div style="padding:15px; text-align:right;"><button onclick="closeCPA()" style="background:#000; color:#fff; border:none; padding:10px 20px; border-radius:12px; font-weight:bold;">CLOSE</button></div>
+    <div style="text-align:center; padding: 20px;">
+        <i class="fa-solid fa-user-shield" style="font-size:40px; color:var(--accent-blue); margin-bottom:15px;"></i>
+        <h3>HUMAN VERIFICATION</h3>
+        <p style="font-size:13px; color:#555;">Complete a simple task to verify your identity and start download.</p>
     </div>
+    <iframe id="cpa-frame" style="width:100%; height:70%; border:none;"></iframe>
 </div>
+
+<div class="notif-box" id="notif-container"></div>
 
 <script>
-const overlay = document.getElementById('popup-overlay');
-const content = document.getElementById('popup-content');
+    const games = [
+        { t: 'Lord Voldemort', i: 'https://i.ibb.co/hRHJ4QCN/Chat-GPT-Image-Mar-11-2026-12-51-27-AM.png', size: '1.2 GB', ram: '4GB RAM', dls: 1540, ss: ['https://i.ibb.co/gMbFY5PZ/Whats-App-Image-2026-03-11-at-05-53-29.jpg'] },
+        { t: 'GTA 5 Mobile', i: 'https://i.ibb.co/ccqsLxrm/gta-logo.jpg', size: '2.4 GB', ram: '4GB RAM', dls: 2841, ss: ['https://i.ibb.co/JWfVvjCz/gta-2.jpg', 'https://i.ibb.co/tph5ytTX/gta-1.jpg'] },
+        { t: 'Assetto Corsa Mobile', i: 'https://i.ibb.co/cczBTgw3/Assetto-Corsa-Mobile.webp', size: '1.8 GB', ram: '4GB RAM', dls: 1421, ss: ['https://i.ibb.co/gZNXy7y7/Assetto-Corsa-Mobile-2.jpg', 'https://i.ibb.co/SXQm7p5H/Assetto-Corsa-Mobile.jpg'] },
+        { t: 'BeamNG.drive Mobile', i: 'https://i.ibb.co/8nS1jHYP/Beam-NG-drive-Mobile.jpg', size: '1.2 GB', ram: '6GB RAM', dls: 1150, ss: ['https://i.ibb.co/8LsrJvcW/Beam-NG-drive-Mobile-22.avif', 'https://i.ibb.co/MyM5LDk2/Beam-NG-drive-Mobile-1.jpg'] },
+        { t: 'Euro Truck Sim 2', i: 'https://i.ibb.co/4Z7WQcYz/Euro-Truck-Simulator-2.jpg', size: '1.1 GB', ram: '3GB RAM', dls: 2552, ss: ['https://i.ibb.co/1fqWd7VX/Euro-Truck-Sim-2.avif', 'https://i.ibb.co/rLh2Szh/Euro-Truck-Sim-2.jpg'] },
+        { t: 'The Crew Motorfest', i: 'https://i.ibb.co/KpSY4gBM/the-crew-motorfest.jpg', size: '3.1 GB', ram: '6GB RAM', dls: 1278, ss: ['https://i.ibb.co/RGQLbrxT/The-Crew-Motorfest-3.jpg', 'https://i.ibb.co/WptFXL3k/The-Crew-Motorfest-1.jpg'] },
+        { t: 'Battlefield 6 Mobile', i: 'https://i.ibb.co/1YkdWt8J/Battlefield-6-Mobile.jpg', size: '2.8 GB', ram: '6GB RAM', dls: 2684, ss: ['https://i.ibb.co/9FpwGmX/Battlefield-6-Mobile-1.jpg'] },
+        { t: 'Baseball 9 Mod', i: 'https://i.ibb.co/1YZg8Yy6/Baseball-9-Mod.jpg', size: '250 MB', ram: '2GB RAM', dls: 2112, ss: ['https://i.ibb.co/nMxf5sGj/Baseball-9-Mod-1.jpg'] },
+        { t: 'CarX Drift Racing 2', i: 'https://i.ibb.co/tPzrNZpQ/Car-X-Drift-Racing-2-klogo.jpg', size: '1.9 GB', ram: '4GB RAM', dls: 1894, ss: ['https://i.ibb.co/99QtPCrw/Car-X-Drift-Racing-1.webp', 'https://i.ibb.co/8gPzV7N7/Car-X-Drift-Racing-22.webp', 'https://i.ibb.co/1CLz6LS/Car-X-Drift-Racing-11.jpg'] },
+        { t: 'Naruto STORM Mobile', i: 'https://i.ibb.co/whZKHGDB/Naruto-STORM-Mobile.jpg', size: '1.9 GB', ram: '4GB RAM', dls: 1743, ss: ['https://i.ibb.co/4wNBtrwt/Naruto-STORM-Mobile2.jpg'] },
+        { t: 'FNAF Remastered', i: 'https://i.ibb.co/CKx04GLt/Five-Nights-at-Freddy-s.jpg', size: '300 MB', ram: '2GB RAM', dls: 2950, ss: ['https://i.ibb.co/p6XCNRwK/Five-Nights-at-Freddy-s1.png'] },
+        { t: 'The Last of Us Mobile', i: 'https://i.ibb.co/Kcx9pv99/The-Last-of-Us-Mobile.jpg', size: '3.8 GB', ram: '6GB RAM', dls: 1412, ss: ['https://i.ibb.co/bR6m6Hvq/The-Last-of-Us-Mobile-2.jpg'] },
+        { t: 'Hollow Knight Silksong', i: 'https://i.ibb.co/xSKyVDLP/Hollow-Knight-Silksong.jpg', size: '1.2 GB', ram: '4GB RAM', dls: 1330, ss: ['https://i.ibb.co/4ZBVfgts/Hollow-Knight-Silksong-2.webp'] },
+        { t: 'Red Dead Redem 2', i: 'https://i.ibb.co/wFmYBkfz/Red-Dead-Redemption-2.jpg', size: '4.5 GB', ram: '6GB RAM', dls: 1095, ss: ['https://i.ibb.co/Z1csQY68/Red-Dead-Redem-2-2.webp'] },
+        { t: 'Once Human Mobile', i: 'https://i.ibb.co/RTqgxVt3/Once-Human-mobile.jpg', size: '3.4 GB', ram: '6GB RAM', dls: 2116, ss: ['https://i.ibb.co/TxTFLN5d/Once-Human-Mobile-1.jpg', 'https://i.ibb.co/7xLGVqCG/Once-Human-Mobile-2.jpg'] }
+    ];
 
-function openP(title, img, size) {
-    document.getElementById('m-title').innerText = title;
-    document.getElementById('m-img').src = img;
-    document.getElementById('m-size').innerText = size;
-    overlay.style.display = 'block';
-    content.classList.add('show');
-}
+    const flags = [
+        {c:'Morocco', f:'https://flagcdn.com/w40/ma.png'},
+        {c:'France', f:'https://flagcdn.com/w40/fr.png'},
+        {c:'Germany', f:'https://flagcdn.com/w40/de.png'},
+        {c:'United States', f:'https://flagcdn.com/w40/us.png'},
+        {c:'United Kingdom', f:'https://flagcdn.com/w40/gb.png'},
+        {c:'Spain', f:'https://flagcdn.com/w40/es.png'}
+    ];
 
-function closeP() {
-    content.classList.remove('show');
-    setTimeout(() => { overlay.style.display = 'none'; }, 100);
-}
+    const targetFlags = [
+        {c:'United States', f:'https://flagcdn.com/w40/us.png'},
+        {c:'United Kingdom', f:'https://flagcdn.com/w40/gb.png'},
+        {c:'Germany', f:'https://flagcdn.com/w40/de.png'}
+    ];
 
-window.onclick = function(event) { if (event.target == overlay) closeP(); }
+    function render(data = games) {
+        const grid = document.getElementById('game-grid');
+        grid.innerHTML = '';
+        data.forEach((g) => {
+            const originalIdx = games.findIndex(x => x.t === g.t);
+            grid.innerHTML += `
+                <div class="card" id="card-${originalIdx}" onclick="prepareOpen(${originalIdx})">
+                    <div class="card-loader" id="loader-${originalIdx}"><div class="spinner"></div></div>
+                    <img src="${g.i}">
+                    <h3>${g.t}</h3>
+                    <div class="dl-count" id="dl-grid-${originalIdx}">${g.dls.toLocaleString()} DL</div>
+                </div>`;
+        });
+    }
 
-const cpaLink = "https://confirmapp.online/cl/i/822jo6";
-function openCPA() {
-    document.getElementById("cpa-frame").src = cpaLink;
-    document.getElementById("cpa-overlay").style.display = "block";
-}
-function closeCPA() {
-    document.getElementById("cpa-overlay").style.display = "none";
-    document.getElementById("cpa-frame").src = "";
-}
+    function searchGames() {
+        const q = document.getElementById('gameSearch').value.toLowerCase();
+        render(games.filter(g => g.t.toLowerCase().includes(q)));
+    }
 
-// Fake Visitor Counter Update
-setInterval(() => {
-    document.getElementById('online-now').innerText = Math.floor(Math.random() * 500) + 50; // 50-550
-    document.getElementById('visitors-today').innerText = Math.floor(Math.random() * 5000) + 100; // 100-5100
-}, 5000);
+    function prepareOpen(idx) {
+        document.getElementById(`loader-${idx}`).style.display = 'flex';
+        setTimeout(() => {
+            document.getElementById(`loader-${idx}`).style.display = 'none';
+            const g = games[idx];
+            document.getElementById('m-title').innerText = g.t;
+            document.getElementById('m-img').src = g.i;
+            document.getElementById('m-size-val').innerText = g.size;
+            document.getElementById('m-ram-val').innerText = g.ram;
+            const ssBox = document.getElementById('m-ss'); ssBox.innerHTML = '';
+            g.ss.forEach(src => { ssBox.innerHTML += `<img src="${src}">`; });
+            document.getElementById('popup-overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }, 800);
+    }
+
+    function closeP() { document.getElementById('popup-overlay').style.display = 'none'; document.body.style.overflow = 'auto'; }
+    function openCPA() { document.getElementById("cpa-frame").src = "https://confirmapp.online/cl/i/822jo6"; document.getElementById("cpa-overlay").style.display = "block"; }
+    function closeCPA() { document.getElementById("cpa-overlay").style.display = "none"; }
+    function smartCheck() { event.currentTarget.innerHTML = "VERIFYING..."; setTimeout(openCPA, 1000); }
+
+    const bTxt = "⚠️ HUMAN VERIFICATION REQUIRED — COMPLETE A SAMPLE TASK";
+    bTxt.split("").forEach((l, i) => { const s = document.createElement('span'); s.innerText = l === " " ? "\u00A0" : l; s.style.animationDelay = (i * 0.05) + "s"; document.getElementById('bannerWave').appendChild(s); });
+
+    function showNotif(game, flag) {
+        game.dls += 1;
+        const gameIdx = games.findIndex(x => x.t === game.t);
+        const cardEl = document.getElementById(`card-${gameIdx}`);
+        const gridDl = document.getElementById(`dl-grid-${gameIdx}`);
+        
+        if(cardEl) {
+            gridDl.innerText = game.dls.toLocaleString() + " DL";
+            cardEl.classList.remove('card-live-update');
+            void cardEl.offsetWidth; // RE-TRIGGER PULSE
+            cardEl.classList.add('card-live-update');
+        }
+        
+        const el = document.createElement('div');
+        el.className = 'live-notif';
+        el.innerHTML = `<img src="${flag.f}" class="flag"> <span>Someone in <b>${flag.c}</b> downloaded <b>${game.t}</b>!</span>`;
+        document.getElementById('notif-container').appendChild(el);
+        setTimeout(() => { el.style.opacity = '0'; setTimeout(() => el.remove(), 500); }, 4000);
+    }
+
+    function startSpamWave() {
+        let count = 0;
+        const interval = setInterval(() => {
+            const flag = targetFlags[Math.floor(Math.random() * targetFlags.length)];
+            showNotif(games[0], flag); 
+            count++;
+            if (count >= 10) clearInterval(interval);
+        }, 1200);
+    }
+
+    function triggerRandomNotif() {
+        const delay = Math.random() * 10000 + 5000;
+        setTimeout(() => {
+            const g = games[Math.floor(Math.random() * (games.length - 1)) + 1]; 
+            const f = flags[Math.floor(Math.random() * flags.length)];
+            showNotif(g, f);
+            triggerRandomNotif();
+        }, delay);
+    }
+
+    // Timers: No initial spam, just every 1 minute.
+    setInterval(startSpamWave, 60000); 
+    triggerRandomNotif(); 
+
+    setInterval(() => {
+        let v = parseInt(document.getElementById('live-v').innerText);
+        document.getElementById('live-v').innerText = v + (Math.random() > 0.5 ? 1 : -1);
+    }, 5000);
+
+    render();
 </script>
-
 </body>
 </html>
